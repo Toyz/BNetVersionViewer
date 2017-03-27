@@ -1,0 +1,126 @@
+[
+  {
+    "code": "agent",
+    "name": "Battle.net Agent",
+    "about":  "Background Service that runs alongside Battle.net Desktop App",
+    "visible": true
+  },
+  {
+    "code": "bna",
+    "name": "Battle.net App",
+    "about":  "Desktop App that lets you launch and play games from Battle.net",
+    "visible": true
+  },
+  {
+    "code": "bnt",
+    "name": "Heroes of the Storm Alpha (Deprecated)",
+    "visible": false
+  },
+  {
+    "code": "clnt",
+    "name": "Client Unknown",
+    "about": "Unknown client seems to link to 'Blizzard Launcher.exe' and 'Blizzard Launcher.app'",
+    "visible": false
+  },
+  {
+    "code": "d3",
+    "name": "Diablo 3",
+    "visible": true
+  },
+  {
+    "code": "d3cn",
+    "name": "Diablo 3 China",
+    "visible": false
+  },
+  {
+    "code": "d3t",
+    "name": "Diablo 3 PTR",
+    "visible": true
+  },
+  {
+    "code": "demo",
+    "name": "Unknown Demo Partial",
+    "visible": false
+  },
+  {
+    "code": "hero",
+    "name": "Heroes of the Storm",
+    "visible": true
+  },
+  {
+    "code": "herot",
+    "name": "Heroes of the Storm PTR",
+    "visible": true
+  },
+  {
+    "code": "hsb",
+    "name": "Hearthstone",
+    "visible": true
+  },
+  {
+    "code": "pro",
+    "name": "Overwatch",
+    "visible": true
+  },
+  {
+    "code": "prot",
+    "name": "Overwatch PTR",
+    "visible": true
+  },
+  {
+    "code": "prodev",
+    "name": "Overwatch Dev",
+    "about": "Internal game client for testing upcoming changes to the game",
+    "visible": true
+  },
+  {
+    "code": "sc2",
+    "name": "StarCraft II Partial",
+    "visible": false
+  },
+  {
+    "code": "s2",
+    "name": "StarCraft II",
+    "visible": true
+  },
+  {
+    "code": "s2t",
+    "name": "StarCraft II Test Partial PTR",
+    "visible": false
+  },
+  {
+    "code": "s2b",
+    "name": "StarCraft II Beta",
+    "visible": false
+  },
+  {
+    "code": "test",
+    "name": "Unkwown Test Partial",
+    "visible": false
+  },
+  {
+    "code": "storm",
+    "name": "Heroes of the Storm (Deprecated)",
+    "visible": false
+  },
+  {
+    "code": "war3",
+    "name": "Warcraft III Partial",
+    "visible": false
+  },
+  {
+    "code": "wow",
+    "name": "World of Warcraft",
+    "visible": true
+  },
+  {
+    "code": "wowt",
+    "name": "World of Warcraft PTR",
+    "visible": true
+  },
+  {
+    "code": "wow_beta",
+    "name": "World of Warcraft Beta",
+    "visible": false
+  }
+]
