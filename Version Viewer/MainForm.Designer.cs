@@ -1,6 +1,6 @@
 ﻿namespace Version_Viewer
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,6 +31,7 @@
             this.gameSelectionBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gameDataListView = new System.Windows.Forms.ListView();
+            this.bgDLCheck = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // gameSelectionBox
@@ -39,7 +40,7 @@
             this.gameSelectionBox.FormattingEnabled = true;
             this.gameSelectionBox.Location = new System.Drawing.Point(86, 12);
             this.gameSelectionBox.Name = "gameSelectionBox";
-            this.gameSelectionBox.Size = new System.Drawing.Size(640, 21);
+            this.gameSelectionBox.Size = new System.Drawing.Size(486, 21);
             this.gameSelectionBox.TabIndex = 0;
             this.gameSelectionBox.SelectedIndexChanged += new System.EventHandler(this.gameSelectionBox_SelectedIndexChanged);
             // 
@@ -63,11 +64,22 @@
             this.gameDataListView.UseCompatibleStateImageBehavior = false;
             this.gameDataListView.View = System.Windows.Forms.View.Details;
             // 
+            // bgDLCheck
+            // 
+            this.bgDLCheck.AutoSize = true;
+            this.bgDLCheck.Location = new System.Drawing.Point(578, 14);
+            this.bgDLCheck.Name = "bgDLCheck";
+            this.bgDLCheck.Size = new System.Drawing.Size(148, 17);
+            this.bgDLCheck.TabIndex = 3;
+            this.bgDLCheck.Text = "View Background Version";
+            this.bgDLCheck.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(738, 295);
+            this.Controls.Add(this.bgDLCheck);
             this.Controls.Add(this.gameDataListView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gameSelectionBox);
@@ -86,6 +98,7 @@
         private System.Windows.Forms.ComboBox gameSelectionBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView gameDataListView;
+        private System.Windows.Forms.CheckBox bgDLCheck;
     }
 }
 

@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Version_Viewer
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         GameList games;
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -33,7 +34,7 @@ namespace Version_Viewer
         private void gameSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             GameList.RootObject game = games.Games[gameSelectionBox.SelectedIndex];
-            var url = $"http://us.patch.battle.net:1119/{game.code}/versions?t={DateTime.Now.Millisecond}";
+            var url = $"http://us.patch.battle.net:1119/{game.code}/{(bgDLCheck.Checked ? "bgdl" : "versions")}?t={DateTime.Now.Millisecond}";
 
             Task.Run(() =>
             {
@@ -50,6 +51,12 @@ namespace Version_Viewer
                         var data = wc.DownloadString(url);
 
                         var lines = Lines(data.Trim());
+
+
+                        Invoke(new Action(() =>
+                        {
+                            gameDataListView.Columns.Clear();
+                        }));
 
                         for (var i = 0; i < lines.Length; i++)
                         {
@@ -69,14 +76,34 @@ namespace Version_Viewer
                                 {
                                     Invoke(new Action(() =>
                                     {
-                                        gameDataListView.Columns.Add(line[ix].Split('!')[0], 100, HorizontalAlignment.Left);
+                                        int size = 100;
+
+                                        string colName = line[ix].Split('!')[0];
+                                        if (colName.Equals("region", StringComparison.CurrentCultureIgnoreCase) || colName.Equals("buildid", StringComparison.CurrentCultureIgnoreCase))
+                                        {
+                                            size = 50;
+                                        }
+
+                                        if (colName.Equals("versionsname", StringComparison.CurrentCultureIgnoreCase))
+                                        {
+                                            size = 85;
+                                        }
+
+                                        if (colName.Equals("buildconfig", StringComparison.CurrentCultureIgnoreCase) || colName.Equals("cdnconfig", StringComparison.CurrentCultureIgnoreCase))
+                                        {
+                                            size = 200;
+                                        }
+
+                                        if(!colName.Equals("productconfig", StringComparison.CurrentCultureIgnoreCase))
+                                            gameDataListView.Columns.Add(SplitCamelCase(colName), size, HorizontalAlignment.Left);
                                     }));
                                 }
                                 else
                                 {
                                     if (lvItem != null)
                                         if(ix > 0)
-                                            lvItem.SubItems.Add(line[ix]);
+                                            if(line.Length - 1 > ix)
+                                                lvItem.SubItems.Add(line[ix]);
                                 }
                             }
 
@@ -109,6 +136,19 @@ namespace Version_Viewer
         public string[] Lines(string source)
         {
             return source.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+        }
+
+        public string SplitCamelCase(string str)
+        {
+            return Regex.Replace(
+                Regex.Replace(
+                    str,
+                    @"(\P{Ll})(\P{Ll}\p{Ll})",
+                    "$1 $2"
+                ),
+                @"(\p{Ll})(\P{Ll})",
+                "$1 $2"
+            );
         }
     }
 }
