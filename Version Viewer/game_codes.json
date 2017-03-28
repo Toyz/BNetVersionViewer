@@ -1,13 +1,13 @@
 [
   {
     "code": "agent",
-    "name": "Battle.net Agent",
+    "name": "Blizzard App Agent",
     "about": "Background Service that runs alongside Battle.net Desktop App",
     "visible": true
   },
   {
     "code": "bna",
-    "name": "Battle.net App",
+    "name": "Blizzard App",
     "about": "Desktop App that lets you launch and play games from Battle.net",
     "visible": true
   },
@@ -33,7 +33,7 @@
   },
   {
     "code": "heroc",
-    "name": "Heroes of the Storm Professional",
+    "name": "Heroes of the Storm Tournament",
     "visible": true
   },
   {
@@ -57,13 +57,18 @@
     "visible": true
   },
   {
+    "code": "hst",
+    "name": "Hearthstone Test Partial",
+    "visible": true
+  },
+  {
     "code": "pro",
     "name": "Overwatch",
     "visible": true
   },
   {
     "code": "proc",
-    "name": "Overwatch Professional",
+    "name": "Overwatch Tournament",
     "visible": true
   },
   {
@@ -78,14 +83,14 @@
     "visible": true
   },
   {
-    "code": "sc2",
-    "name": "StarCraft II Partial",
-    "visible": false
-  },
-  {
     "code": "s2",
     "name": "StarCraft II",
     "visible": true
+  },
+  {
+    "code": "sc2",
+    "name": "StarCraft II Partial",
+    "visible": false
   },
   {
     "code": "s2t",
