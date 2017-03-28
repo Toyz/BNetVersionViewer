@@ -34,8 +34,8 @@ namespace Version_Viewer
         private void gameSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             GameList.RootObject game = games.Games[gameSelectionBox.SelectedIndex];
-            var url = $"http://us.patch.battle.net:1119/{game.code}/{(bgDLCheck.Checked ? "bgdl" : "versions")}?t={DateTime.Now.Millisecond}";
-
+            var url = $"http://us.patch.battle.net:1119/{game.code}/{(bgDLCheck.Checked ? "bgdl" : "versions")}?nocache={DateTime.Now.Millisecond}";
+        
             Task.Run(() =>
             {
                 Invoke(new Action(() =>

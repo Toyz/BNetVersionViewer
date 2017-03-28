@@ -21,7 +21,7 @@ namespace BNetVersionWatcher
             {
                 foreach (string game in gameCodes)
                 {
-                    var url = $"http://us.patch.battle.net:1119/{game}/versions?t={DateTime.Now.Millisecond}";
+                    var url = $"http://us.patch.battle.net:1119/{game}/versions?nocache={DateTime.Now.Millisecond}";
                     try
                     {
                         using (var wc = new WebClient())
