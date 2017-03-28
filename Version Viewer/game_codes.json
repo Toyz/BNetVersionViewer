@@ -2,25 +2,14 @@
   {
     "code": "agent",
     "name": "Battle.net Agent",
-    "about":  "Background Service that runs alongside Battle.net Desktop App",
+    "about": "Background Service that runs alongside Battle.net Desktop App",
     "visible": true
   },
   {
     "code": "bna",
     "name": "Battle.net App",
-    "about":  "Desktop App that lets you launch and play games from Battle.net",
+    "about": "Desktop App that lets you launch and play games from Battle.net",
     "visible": true
-  },
-  {
-    "code": "bnt",
-    "name": "Heroes of the Storm Alpha (Deprecated)",
-    "visible": false
-  },
-  {
-    "code": "clnt",
-    "name": "Client Unknown",
-    "about": "Unknown client seems to link to 'Blizzard Launcher.exe' and 'Blizzard Launcher.app'",
-    "visible": false
   },
   {
     "code": "d3",
@@ -38,19 +27,29 @@
     "visible": true
   },
   {
-    "code": "demo",
-    "name": "Unknown Demo Partial",
-    "visible": false
-  },
-  {
     "code": "hero",
     "name": "Heroes of the Storm",
+    "visible": true
+  },
+  {
+    "code": "heroc",
+    "name": "Heroes of the Storm Professional",
     "visible": true
   },
   {
     "code": "herot",
     "name": "Heroes of the Storm PTR",
     "visible": true
+  },
+  {
+    "code": "storm",
+    "name": "Heroes of the Storm (Deprecated)",
+    "visible": false
+  },
+  {
+    "code": "bnt",
+    "name": "Heroes of the Storm Alpha (Deprecated)",
+    "visible": false
   },
   {
     "code": "hsb",
@@ -60,6 +59,11 @@
   {
     "code": "pro",
     "name": "Overwatch",
+    "visible": true
+  },
+  {
+    "code": "proc",
+    "name": "Overwatch Professional",
     "visible": true
   },
   {
@@ -94,16 +98,6 @@
     "visible": false
   },
   {
-    "code": "test",
-    "name": "Unkwown Test Partial",
-    "visible": false
-  },
-  {
-    "code": "storm",
-    "name": "Heroes of the Storm (Deprecated)",
-    "visible": false
-  },
-  {
     "code": "war3",
     "name": "Warcraft III Partial",
     "visible": false
@@ -121,6 +115,22 @@
   {
     "code": "wow_beta",
     "name": "World of Warcraft Beta",
+    "visible": false
+  },
+  {
+    "code": "clnt",
+    "name": "Client Unknown",
+    "about": "Unknown client seems to link to 'Blizzard Launcher.exe' and 'Blizzard Launcher.app'",
+    "visible": false
+  },
+  {
+    "code": "test",
+    "name": "Unkwown Test Partial",
+    "visible": false
+  },
+  {
+    "code": "demo",
+    "name": "Unknown Demo Partial",
     "visible": false
   }
 ]
