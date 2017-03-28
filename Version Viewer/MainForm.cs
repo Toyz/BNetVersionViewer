@@ -71,7 +71,7 @@ namespace Version_Viewer
 
                             if (colName.Equals("buildconfig", StringComparison.CurrentCultureIgnoreCase) || colName.Equals("cdnconfig", StringComparison.CurrentCultureIgnoreCase))
                             {
-                                size = 200;
+                                size = 210;
                             }
 
                             if (!colName.Equals("productconfig", StringComparison.CurrentCultureIgnoreCase))
