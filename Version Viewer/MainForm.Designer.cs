@@ -55,9 +55,11 @@
             // 
             // gameDataListView
             // 
+            this.gameDataListView.FullRowSelect = true;
             this.gameDataListView.GridLines = true;
             this.gameDataListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.gameDataListView.Location = new System.Drawing.Point(15, 39);
+            this.gameDataListView.MultiSelect = false;
             this.gameDataListView.Name = "gameDataListView";
             this.gameDataListView.Size = new System.Drawing.Size(711, 244);
             this.gameDataListView.TabIndex = 2;
@@ -74,7 +76,7 @@
             this.bgDLCheck.Text = "View Background Version";
             this.bgDLCheck.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -85,7 +87,7 @@
             this.Controls.Add(this.gameSelectionBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "BNet Version Viewer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
