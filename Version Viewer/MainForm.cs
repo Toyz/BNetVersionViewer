@@ -1,24 +1,24 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BNetHelper;
 
 namespace Version_Viewer
 {
     public partial class MainForm : Form
     {
-        GameList games;
+        private GameList games;
+        private BNetHelper.BNetHelper bnet;
+
         public MainForm()
         {
             InitializeComponent();
 
             games = new GameList();
             gameDataListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-
+            bnet = new BNetHelper.BNetHelper();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -34,7 +34,6 @@ namespace Version_Viewer
         private void gameSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             GameList.RootObject game = games.Games[gameSelectionBox.SelectedIndex];
-            var url = $"http://us.patch.battle.net:1119/{game.code}/{(bgDLCheck.Checked ? "bgdl" : "versions")}?nocache={DateTime.Now.Millisecond}";
         
             Task.Run(() =>
             {
@@ -44,85 +43,77 @@ namespace Version_Viewer
                     gameDataListView.Items.Clear();
                 }));
 
-
-                using(var wc = new WebClient())
+                try
                 {
-                    try {
-                        var data = wc.DownloadString(url);
+                    var items = bnet.GetData(game.code, bgDLCheck.Checked ? DownloadMode.bgdl : DownloadMode.versions);
 
-                        var lines = Lines(data.Trim());
-
-
-                        Invoke(new Action(() =>
-                        {
-                            gameDataListView.Columns.Clear();
-                        }));
-
-                        for (var i = 0; i < lines.Length; i++)
-                        {
-                            var line = lines[i].Split('|');
-
-                            if (line.Length <= 1) continue;
-
-                            ListViewItem lvItem = null;
-                            if (i > 0)
-                            {
-                                lvItem = new ListViewItem(line[0]);
-                            }
-
-                            for (var ix = 0; ix < line.Length; ix++)
-                            {
-                                if (i == 0 && gameDataListView.Columns.Count < line.Length)
-                                {
-                                    Invoke(new Action(() =>
-                                    {
-                                        int size = 100;
-
-                                        string colName = line[ix].Split('!')[0];
-                                        if (colName.Equals("region", StringComparison.CurrentCultureIgnoreCase) || colName.Equals("buildid", StringComparison.CurrentCultureIgnoreCase))
-                                        {
-                                            size = 50;
-                                        }
-
-                                        if (colName.Equals("versionsname", StringComparison.CurrentCultureIgnoreCase))
-                                        {
-                                            size = 85;
-                                        }
-
-                                        if (colName.Equals("buildconfig", StringComparison.CurrentCultureIgnoreCase) || colName.Equals("cdnconfig", StringComparison.CurrentCultureIgnoreCase))
-                                        {
-                                            size = 200;
-                                        }
-
-                                        if(!colName.Equals("productconfig", StringComparison.CurrentCultureIgnoreCase))
-                                            gameDataListView.Columns.Add(SplitCamelCase(colName), size, HorizontalAlignment.Left);
-                                    }));
-                                }
-                                else
-                                {
-                                    if (lvItem != null)
-                                        if(ix > 0)
-                                            if(line.Length - 1 > ix)
-                                                lvItem.SubItems.Add(line[ix]);
-                                }
-                            }
-
-                            if (lvItem != null)
-                            {
-                                Invoke(new Action(() =>
-                                {
-                                    gameDataListView.Items.Add(lvItem);
-                                }));
-                            }
-                        }
-                    } catch (Exception ex)
+                    Invoke(new Action(() =>
                     {
-                        Debug.WriteLine(ex);
+                        gameDataListView.Columns.Clear();
+                    }));
+
+                    foreach(var header in items.headers)
+                    {
                         Invoke(new Action(() =>
                         {
-                            MessageBox.Show( "Game doesn't have any version info", "No Version Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            int size = 100;
+
+                            string colName = header.Replace(" ", "");
+                            if (colName.Equals("region", StringComparison.CurrentCultureIgnoreCase) || colName.Equals("buildid", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                size = 50;
+                            }
+
+                            if (colName.Equals("versionsname", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                size = 85;
+                            }
+
+                            if (colName.Equals("buildconfig", StringComparison.CurrentCultureIgnoreCase) || colName.Equals("cdnconfig", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                size = 200;
+                            }
+
+                            if (!colName.Equals("productconfig", StringComparison.CurrentCultureIgnoreCase))
+                                gameDataListView.Columns.Add(header, size, HorizontalAlignment.Left);
                         }));
                     }
+
+
+                    foreach(var item in items.games)
+                    {
+                        ListViewItem lvItem = null;
+                        var values = item.Values;
+
+                        int idx = 0;
+                        foreach(var val in values)
+                        {
+                            if(idx == 0)
+                            {
+                                lvItem = new ListViewItem(val);
+                            }else
+                            {
+                                lvItem.SubItems.Add(val);
+                            }
+
+                            idx++;
+                        }
+
+                        if (lvItem != null)
+                        {
+                            Invoke(new Action(() =>
+                            {
+                                gameDataListView.Items.Add(lvItem);
+                            }));
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        MessageBox.Show("Game doesn't have any version info", "No Version Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }));
                 }
             }).ContinueWith((a) =>
             {
@@ -131,24 +122,6 @@ namespace Version_Viewer
                     gameSelectionBox.Enabled = true;
                 }));
             });
-        }
-
-        public string[] Lines(string source)
-        {
-            return source.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-        }
-
-        public string SplitCamelCase(string str)
-        {
-            return Regex.Replace(
-                Regex.Replace(
-                    str,
-                    @"(\P{Ll})(\P{Ll}\p{Ll})",
-                    "$1 $2"
-                ),
-                @"(\p{Ll})(\P{Ll})",
-                "$1 $2"
-            );
         }
     }
 }
